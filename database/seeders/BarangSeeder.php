@@ -13,17 +13,105 @@ class BarangSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('m_barang')->insert([
-            ['barang_id' => 1, 'kategori_id' => 1, 'barang_kode' => 'BR001', 'barang_nama' => 'Laptop', 'harga_beli' => 5000000, 'harga_jual' => 5500000],
-            ['barang_id' => 2, 'kategori_id' => 1, 'barang_kode' => 'BR002', 'barang_nama' => 'HP Android', 'harga_beli' => 3000000, 'harga_jual' => 3500000],
-            ['barang_id' => 3, 'kategori_id' => 2, 'barang_kode' => 'BR003', 'barang_nama' => 'Mie Instan', 'harga_beli' => 2500, 'harga_jual' => 3000],
-            ['barang_id' => 4, 'kategori_id' => 2, 'barang_kode' => 'BR004', 'barang_nama' => 'Biskuit', 'harga_beli' => 5000, 'harga_jual' => 6000],
-            ['barang_id' => 5, 'kategori_id' => 3, 'barang_kode' => 'BR005', 'barang_nama' => 'Teh Botol', 'harga_beli' => 3500, 'harga_jual' => 4000],
-            ['barang_id' => 6, 'kategori_id' => 3, 'barang_kode' => 'BR006', 'barang_nama' => 'Kopi Susu', 'harga_beli' => 4000, 'harga_jual' => 4500],
-            ['barang_id' => 7, 'kategori_id' => 4, 'barang_kode' => 'BR007', 'barang_nama' => 'Kaos', 'harga_beli' => 50000, 'harga_jual' => 60000],
-            ['barang_id' => 8, 'kategori_id' => 4, 'barang_kode' => 'BR008', 'barang_nama' => 'Celana Jeans', 'harga_beli' => 150000, 'harga_jual' => 170000],
-            ['barang_id' => 9, 'kategori_id' => 5, 'barang_kode' => 'BR009', 'barang_nama' => 'Pensil', 'harga_beli' => 2000, 'harga_jual' => 2500],
-            ['barang_id' => 10, 'kategori_id' => 5, 'barang_kode' => 'BR010', 'barang_nama' => 'Pulpen', 'harga_beli' => 3000, 'harga_jual' => 4000],
-        ]);
+        $barangData = [
+            // PlayStation (PS)
+            [
+                'kategori_id' => 1,
+                'barang_kode' => 'PS1',
+                'barang_nama' => 'PlayStation 3',
+                'harga_beli' => 1500000,
+                'harga_jual' => 2000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'kategori_id' => 1,
+                'barang_kode' => 'PS2',
+                'barang_nama' => 'PlayStation 5',
+                'harga_beli' => 2000000,
+                'harga_jual' => 2500000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            // Buku (BK)
+            [
+                'kategori_id' => 2,
+                'barang_kode' => 'BK1',
+                'barang_nama' => 'Dunia Shopie',
+                'harga_beli' => 100000,
+                'harga_jual' => 150000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'kategori_id' => 2,
+                'barang_kode' => 'BK2',
+                'barang_nama' => 'Mein Kampf',
+                'harga_beli' => 150000,
+                'harga_jual' => 200000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            // Nintendo (NTD)
+            [
+                'kategori_id' => 3,
+                'barang_kode' => 'NTD1',
+                'barang_nama' => 'Nintendo Switch Lite',
+                'harga_beli' => 5000000,
+                'harga_jual' => 6000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'kategori_id' => 3,
+                'barang_kode' => 'NTD2',
+                'barang_nama' => 'Nintendo Switch Jailbreak',
+                'harga_beli' => 7000000,
+                'harga_jual' => 8000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            // Motor (MTR)
+            [
+                'kategori_id' => 4,
+                'barang_kode' => 'MTR1',
+                'barang_nama' => 'Suzuki GSX-R1000',
+                'harga_beli' => 280000000,
+                'harga_jual' => 300000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'kategori_id' => 4,
+                'barang_kode' => 'MTR2',
+                'barang_nama' => 'Cbr 1000rr',
+                'harga_beli' => 1077000000,
+                'harga_jual' => 1100000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            // Diamond (DMD)
+            [
+                'kategori_id' => 5,
+                'barang_kode' => 'DMD1',
+                'barang_nama' => 'White Diamond',
+                'harga_beli' => 100000000,
+                'harga_jual' => 120000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'kategori_id' => 5,
+                'barang_kode' => 'DMD2',
+                'barang_nama' => 'Black Diamond',
+                'harga_beli' => 150000000,
+                'harga_jual' => 180000000,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+
+
+        DB::table('m_barang')->insert($barangData);
     }
 }
