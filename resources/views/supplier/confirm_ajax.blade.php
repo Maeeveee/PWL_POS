@@ -33,16 +33,16 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Nama Supplier :</th>
-                            <td class="col-9">{{ $supplier->nama_supplier }}</td>
+                            <th class="text-right col-3">Kode :</th>
+                            <td class="col-9">{{ $supplier->supplier_kode }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Kontak :</th>
-                            <td class="col-9">{{ $supplier->kontak }}</td>
+                            <th class="text-right col-3">Nama :</th>
+                            <td class="col-9">{{ $supplier->supplier_nama }}</td>
                         </tr>
                         <tr>
                             <th class="text-right col-3">Alamat :</th>
-                            <td class="col-9">{{ $supplier->alamat }}</td>
+                            <td class="col-9">{{ $supplier->supplier_alamat }}</td>
                         </tr>
                     </table>
                 </div>
@@ -72,6 +72,10 @@
                                 });
                                 dataSupplier.ajax.reload();
                             } else {
+                                $('.error-text').text('');
+                                $.each(response.msgField, function(prefix, val) {
+                                    $('#error-' + prefix).text(val[0]);
+                                });
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Terjadi Kesalahan',
@@ -81,6 +85,17 @@
                         }
                     });
                     return false;
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
                 }
             });
         });

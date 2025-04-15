@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register Pengguna</title>
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -18,20 +19,29 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
+<body class="hold-transition register-page">
+    <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
+                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Daftar untuk membuat akun baru</p>
-                <form action="{{ route('register.post') }}" method="POST" id="form-register">
+                <p class="login-box-msg">Register a new account</p>
+
+                <form action="{{ url('register') }}" method="POST" id="form-register">
                     @csrf
+                    <div class="form-select mb-3">
+                        <select name="level_id" id="level_id" class="form-control" required>
+                            <option value="">Pilih Level</option>
+                            @foreach ($level as $l)
+                                <option value="{{ $l->level_id }}">{{ $l->level_nama }}</option>
+                            @endforeach
+                        </select>
+                        <small id="error-level_id" class="error-text form-text text-danger"></small>
+                    </div>
                     <div class="input-group mb-3">
-                        <input type="text" id="username" name="username" class="form-control"
-                            placeholder="Username">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                            required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -40,17 +50,18 @@
                         <small id="error-username" class="error-text text-danger"></small>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama">
+                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama"
+                            required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
-                        <small id="error-name" class="error-text text-danger"></small>
+                        <small id="error-nama" class="error-text text-danger"></small>
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" id="password" name="password" class="form-control"
-                            placeholder="Password">
+                            placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -60,7 +71,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" id="password_confirmation" name="password_confirmation"
-                            class="form-control" placeholder="Konfirmasi Password">
+                            class="form-control" placeholder="Retype password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -68,21 +79,20 @@
                         </div>
                         <small id="error-password_confirmation" class="error-text text-danger"></small>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Daftar</button>
-                        </div>
+                    <div class="input-group mb-3">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
                     </div>
                 </form>
-                <p class="mt-3 text-center">
-                    Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a>
+
+                <p class="mb-0 mt-4">
+                    Sudah punya akun?
+                    <a href="register" class="text-center">login</a>
                 </p>
             </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+            <!-- /.form-box -->
+        </div><!-- /.card -->
     </div>
-    <!-- /.login-box -->
+    <!-- /.register-box -->
 
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -97,32 +107,32 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $(document).ready(function() {
             $("#form-register").validate({
                 rules: {
+                    level_id: {
+                        required: true,
+                        number: true
+                    },
                     username: {
                         required: true,
-                        minlength: 4,
+                        minlength: 3,
                         maxlength: 20
                     },
                     nama: {
                         required: true,
-                        minlength: 4,
-                        maxlength: 50
+                        minlength: 3,
+                        maxlength: 100
                     },
                     password: {
                         required: true,
-                        minlength: 5,
+                        minlength: 6,
                         maxlength: 20
                     },
                     password_confirmation: {
                         required: true,
+                        minlength: 6,
+                        maxlength: 20,
                         equalTo: "#password"
                     }
                 },
@@ -135,14 +145,14 @@
                             if (response.status) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Registrasi Berhasil',
+                                    title: 'Berhasil Register',
                                     text: response.message,
                                 }).then(function() {
                                     window.location = response.redirect;
                                 });
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField, function(prefix, val) {
+                                $.each(response.errors, function(prefix, val) {
                                     $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
@@ -153,6 +163,7 @@
                             }
                         }
                     });
+
                     return false;
                 },
                 errorElement: 'span',
@@ -170,4 +181,5 @@
         });
     </script>
 </body>
+
 </html>

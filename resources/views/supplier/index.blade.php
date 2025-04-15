@@ -5,8 +5,13 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('supplier/create') }}">Tambah</a>
-                <button onclick="modalAction('{{ url('supplier/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
+                <button onclick="modalAction('{{ url('supplier/import') }}')" class="btn btn-info">Import Supplier</button>
+                <a href="{{ url('supplier/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export
+                    Excel</a>
+                <a href="{{ url('supplier/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export
+                    Pdf</a>
+                <button onclick="modalAction('{{ url('supplier/create_ajax') }}')"
+                    class="btn btn-sm btn-success mt-1">Tambah
                     Ajax</button>
             </div>
         </div>
@@ -21,8 +26,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nama Supplier</th>
-                        <th>Kontak</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
                         <th>Alamat</th>
                         <th>Aksi</th>
                     </tr>
@@ -49,14 +54,15 @@
         var dataSupplier;
         $(document).ready(function() {
             dataSupplier = $('#table_supplier').DataTable({
+                // serverSide: true, jika ingin menggunakan server side processing
                 serverSide: true,
                 ajax: {
                     "url": "{{ url('supplier/list') }}",
                     "dataType": "json",
                     "type": "POST",
                 },
-                columns: [
-                    {
+                columns: [{
+                        // nomor urut dari laravel datatable addIndexColumn()
                         data: "DT_RowIndex",
                         className: "text-center",
                         orderable: false,
@@ -64,21 +70,21 @@
                     },
 
                     {
-                        data: "nama_supplier",
+                        data: "supplier_kode",
                         className: "",
                         orderable: true,
                         searchable: true
                     },
 
                     {
-                        data: "kontak",
+                        data: "supplier_nama",
                         className: "",
                         orderable: true,
                         searchable: true
                     },
 
                     {
-                        data: "alamat",
+                        data: "supplier_alamat",
                         className: "",
                         orderable: true,
                         searchable: true

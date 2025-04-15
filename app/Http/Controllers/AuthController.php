@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\LevelModel;
+use App\Models\UserModel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     public function login()
     {
-        if (Auth::check()) { // jika sudah login, maka redirect ke halaman home
+        if (Auth::check()) {
             return redirect('/');
         }
         return view('auth.login');
@@ -24,8 +26,6 @@ class AuthController extends Controller
             $credentials = $request->only('username', 'password');
 
             if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-
                 return response()->json([
                     'status' => true,
                     'message' => 'Login Berhasil',
@@ -51,34 +51,49 @@ class AuthController extends Controller
         return redirect('login');
     }
 
-    public function register(Request $request)
+    public function register()
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|min:4|max:20|unique:users,username',
-            'nama' => 'required|string|min:4|max:50',
-            'password' => 'required|string|min:5|max:20|confirmed',
-        ]);
+        if (Auth::check()) {
+            return redirect('/');
+        }
 
-        if ($validator->fails()) {
+        $level = LevelModel::select('level_id', 'level_nama')->get();
+
+        return view('auth.register', ['level' => $level]);
+    }
+
+    public function postRegister(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'level_id' => 'required|integer|exists:m_level,level_id',
+                'username' => 'required|string|min:3|max:20|unique:m_user,username',
+                'nama' => 'required|string|min:3|max:100',
+                'password' => 'required|min:6|max:20|confirmed'
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Register Gagal',
+                    'errors' => $validator->errors(),
+                ]);
+            }
+
+            $request['password'] = Hash::make($request['password']);
+            $user = UserModel::create($request->all());
+
+            Auth::login($user);
+
             return response()->json([
-                'status' => false,
-                'message' => 'Validasi gagal',
-                'msgField' => $validator->errors()
+                'status' => true,
+                'message' => 'Register Berhasil',
+                'redirect' => url('/')
             ]);
         }
 
-        // Simpan user baru
-        $user = User::create([
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level' => 'USR' // sesuaikan default levelnya jika ada
-        ]);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Akun berhasil dibuat. Silakan login.',
-            'redirect' => route('login')
-        ]);
+        redirect('/');
     }
 }

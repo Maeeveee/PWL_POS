@@ -13,39 +13,34 @@ class KategoriSeeder extends Seeder
      */
     public function run(): void
     {
-        $kategoriData = [
+        $data = [
             [
-                'kategori_kode' => 'PS',
-                'kategori_nama' => 'Playstation',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'kategori_id' => 1,
+                'kategori_kode' => 'KTG001',
+                'kategori_nama' => 'Elektronik',
             ],
             [
-                'kategori_kode' => 'BK',
-                'kategori_nama' => 'Buku',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'kategori_id' => 2,
+                'kategori_kode' => 'KTG002',
+                'kategori_nama' => 'Pakaian',
             ],
             [
-                'kategori_kode' => 'NTD',
-                'kategori_nama' => 'Nintendo',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'kategori_id' => 3,
+                'kategori_kode' => 'KTG003',
+                'kategori_nama' => 'Makanan',
             ],
             [
-                'kategori_kode' => 'MTR',
-                'kategori_nama' => 'Motor',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'kategori_id' => 4,
+                'kategori_kode' => 'KTG004',
+                'kategori_nama' => 'Minuman',
             ],
             [
-                'kategori_kode' => 'DMD',
-                'kategori_nama' => 'Diamond',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
+                'kategori_id' => 5,
+                'kategori_kode' => 'KTG005',
+                'kategori_nama' => 'Peralatan Rumah',
+            ],
         ];
-        
-        DB::table('m_kategori')->insert($kategoriData);
+
+        DB::table('m_kategori')->insert($data);
     }
 }

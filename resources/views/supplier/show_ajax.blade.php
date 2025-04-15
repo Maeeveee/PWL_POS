@@ -30,16 +30,16 @@
                         <td>{{ $supplier->supplier_id }}</td>
                     </tr>
                     <tr>
-                        <th>Nama Supplier</th>
-                        <td>{{ $supplier->nama_supplier }}</td>
+                        <th>Kode</th>
+                        <td>{{ $supplier->supplier_kode }}</td>
                     </tr>
                     <tr>
-                        <th>Kontak</th>
-                        <td>{{ $supplier->kontak }}</td>
+                        <th>Nama</th>
+                        <td>{{ $supplier->supplier_nama }}</td>
                     </tr>
                     <tr>
                         <th>Alamat</th>
-                        <td>{{ $supplier->alamat }}</td>
+                        <td>{{ $supplier->supplier_alamat }}</td>
                     </tr>
                 </table>
             </div>

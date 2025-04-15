@@ -28,22 +28,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Nama Supplier</label>
-                        <input value="{{ $supplier->nama_supplier }}" type="text" name="nama_supplier" id="nama_supplier"
+                        <label>Kode</label>
+                        <input value="{{ $supplier->supplier_kode }}" type="text" name="supplier_kode" id="supplier_kode"
                             class="form-control" required>
-                        <small id="error-nama_supplier" class="error-text form-text text-danger"></small>
+                        <small id="error-supplier_kode" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Kontak</label>
-                        <input value="{{ $supplier->kontak }}" type="text" name="kontak" id="kontak"
+                        <label>Nama</label>
+                        <input value="{{ $supplier->supplier_nama }}" type="text" name="supplier_nama" id="supplier_nama"
                             class="form-control" required>
-                        <small id="error-kontak" class="error-text form-text text-danger"></small>
+                        <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
-                        <input value="{{ $supplier->alamat }}" type="text" name="alamat"
-                            id="alamat" class="form-control" required>
-                        <small id="error-alamat" class="error-text form-text text-danger"></small>
+                        <input value="{{ $supplier->supplier_alamat }}" type="text" name="supplier_alamat"
+                            id="supplier_alamat" class="form-control" required>
+                        <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -57,17 +57,17 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    nama_supplier: {
+                    supplier_kode: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 10
+                    },
+                    supplier_nama: {
                         required: true,
                         minlength: 3,
                         maxlength: 100
                     },
-                    kontak: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50
-                    },
-                    alamat: {
+                    supplier_alamat: {
                         required: true,
                         maxlength: 255
                     },

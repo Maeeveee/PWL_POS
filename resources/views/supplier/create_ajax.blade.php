@@ -9,24 +9,22 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>ID Supplier</label>
-                    <input type="number" name="supplier_id" id="supplier_id" class="form-control" required>
-                    <small id="error-supplier_id" class="error-text form-text text-danger"></small>
+                    <label>Kode</label>
+                    <input value="" type="text" name="supplier_kode" id="supplier_kode" class="form-control"
+                        required>
+                    <small id="error-supplier_kode" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama Supplier</label>
-                    <input type="text" name="nama_supplier" id="nama_supplier" class="form-control" required>
-                    <small id="error-nama_supplier" class="error-text form-text text-danger"></small>
-                </div>
-                <div class="form-group">
-                    <label>Kontak</label>
-                    <input type="text" name="kontak" id="kontak" class="form-control" required>
-                    <small id="error-kontak" class="error-text form-text text-danger"></small>
+                    <label>Nama</label>
+                    <input value="" type="text" name="supplier_nama" id="supplier_nama" class="form-control"
+                        required>
+                    <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Alamat</label>
-                    <input type="text" name="alamat" id="alamat" class="form-control" required>
-                    <small id="error-alamat" class="error-text form-text text-danger"></small>
+                    <input value="" type="text" name="supplier_alamat" id="supplier_alamat"
+                        class="form-control" required>
+                    <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -40,17 +38,17 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                nama_supplier: {
+                supplier_kode: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 10
+                },
+                supplier_nama: {
                     required: true,
                     minlength: 3,
                     maxlength: 100
                 },
-                kontak: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50
-                },
-                alamat: {
+                supplier_alamat: {
                     required: true,
                     maxlength: 255
                 },
@@ -98,4 +96,3 @@
         });
     });
 </script>
-

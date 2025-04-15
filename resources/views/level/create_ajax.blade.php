@@ -4,19 +4,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Level</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Kode Level</label>
+                    <label>Kode</label>
                     <input value="" type="text" name="level_kode" id="level_kode" class="form-control"
                         required>
                     <small id="error-level_kode" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama Level</label>
+                    <label>Nama</label>
                     <input value="" type="text" name="level_nama" id="level_nama" class="form-control"
                         required>
                     <small id="error-level_nama" class="error-text form-text text-danger"></small>
@@ -29,21 +28,20 @@
         </div>
     </div>
 </form>
-
 <script>
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
                 level_kode: {
                     required: true,
-                    minlength: 2,
+                    minlength: 3,
                     maxlength: 10
                 },
                 level_nama: {
                     required: true,
                     minlength: 3,
                     maxlength: 100
-                }
+                },
             },
             submitHandler: function(form) {
                 $.ajax({

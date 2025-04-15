@@ -1,6 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
+
 <div class="card card-outline card-primary">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
@@ -17,15 +18,14 @@
         <form method="POST" action="{{ url('/user/'.$user->user_id) }}" class="form-horizontal">
             @csrf
             {!! method_field('PUT') !!}
+            <!-- tambahkan baris ini untuk proses edit yang butuh method PUT -->
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Level</label>
                 <div class="col-11">
                     <select class="form-control" id="level_id" name="level_id" required>
                         <option value="">- Pilih Level -</option>
                         @foreach($level as $item)
-                        <option value="{{ $item->level_id }}" @if($item->level_id == $user->level_id) selected @endif>
-                            {{ $item->level_nama }}
-                        </option>
+                        <option value="{{ $item->level_id }}" @if($item->level_id == $user->level_id) selected @endif>{{ $item->level_nama }}</option>
                         @endforeach
                     </select>
                     @error('level_id')
@@ -36,7 +36,8 @@
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Username</label>
                 <div class="col-11">
-                    <input type="text" class="form-control" id="username" name="username" value="{{ old('username', $user->username) }}" required>
+                    <input type="text" class="form-control" id="username" name="username"
+                        value="{{ old('username', $user->username) }}" required>
                     @error('username')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -58,7 +59,8 @@
                     @error('password')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @else
-                    <small class="form-text text-muted">Abaikan (jangan diisi) jika tidak ingin mengganti password user.</small>
+                    <small class="form-text text-muted">Abaikan (jangan diisi) jika tidak ingin
+                        mengganti password user.</small>
                     @enderror
                 </div>
             </div>
@@ -73,10 +75,10 @@
         @endempty
     </div>
 </div>
+
 @endsection
 
 @push('css')
 @endpush
-
 @push('js')
 @endpush

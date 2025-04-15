@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class SupplierModel extends Model
 {
     use HasFactory;
-    protected $table = 'm_supplier';  // definisi pada nama tabel
-    protected $primaryKey = 'supplier_id';  // definisi primary key
+    protected $table = 'm_supplier';
+    protected $primaryKey = 'supplier_id';
 
-    public $timestamps = true; // Aktifkan timestamps
-
-
-    protected $fillable = ['supplier_id', 'nama_supplier', 'kontak', 'alamat'];
+    protected $fillable = [
+        'supplier_kode',
+        'supplier_nama',
+        'supplier_alamat',
+    ];
 }
